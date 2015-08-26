@@ -1,0 +1,20 @@
+{
+  "name": "express4.x practice",
+  "version": "0.0.1",
+  "homepage": "https://github.com/SPxiaomin/NodeLearn",
+  "authors": [
+    "gujunmin <3013366498@qq.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4"
+  }
+}

@@ -1,2 +1,5 @@
 # NodeJs_Practice
-对于每一次学习node.js的练习代码和总结笔记。
+
+Description:
+
+> 此`repository`用来保存每次学习`Nodejs`的练习代码和知识总结。
