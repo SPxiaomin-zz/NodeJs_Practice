@@ -14,7 +14,7 @@
 >> - <http://expressjs.com/4x/api.html>, 这个是Express官方网站，在这里可以找到你需要的api, 我目前还没有全部看完， 不过应该就快了。
 >> - 其他还有一些零零碎碎的知识来自于 StackOverflow, Segmentfault 等网站
 
-## Knowledge point：
+## Knowledge Point：
 
 > - 首先，安装express库。在Express3.6.x之前的版本，Express需要全局安装的，项目构建器模块是合并在Express项目中的，后来这个构建器被拆分出来，独立成为了一个项目express-generator，现在我们只需要全局安装express-generator项目就行了。
 >
