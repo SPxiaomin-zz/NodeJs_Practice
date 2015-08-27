@@ -45,7 +45,7 @@
 >> 4. 现在就可以使用`html`后缀的视图文件了。
 >
 > - 这个教程当中涉及到了Bootstrap框架的使用，如果要使用的话可以通过CDN或者将文件下载到本地，这个教程中提及到了使用`bower`管理工具将Bootstrap包下载到本地，喜欢折腾的我果断学习了一下这个对于我陌生的工具：
->>
+>
 >> 1. 通过`npm`下载bower:
 >>          
 >>          npm install -g bower #我的学习环境是Ubuntu15.04, 所以需要超级用户权限才能进行安装。同时还要注意添加`-g`参数，进行全局安装，这样才可以当成命令使用。
@@ -75,7 +75,7 @@
 > - 编写视图文件,主要用到了Bootstrap中的按钮，Alerts(警告), 表单。
 >
 > - Session的使用（使用到了[connect-mongo](https://www.npmjs.com/package/connect-mongo)和[express-session](https://www.npmjs.com/package/express-session)模块）：
->>
+>
 >> 1. 在app.js文件顶部引两个模块:
 >>
 >>          session = require('express-session');
@@ -93,7 +93,7 @@
 >>          }));
 >>
 >> 3. 现在就可以使用了，其中还涉及到了`res.locals`的使用，这是一个亮点。
->>
+>
 > - 最后一步就是进行页面访问控制了：
 >
 >> 1. / ，谁访问都行，没有任何控制
