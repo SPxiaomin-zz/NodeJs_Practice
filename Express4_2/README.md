@@ -1,5 +1,12 @@
 # Express4.13.1 Ajax JSON Grunt CSS3 JavaScript 实战练习(2015/9/10)
 
+## Description
+
+刚开始的时候，我只是想学习一下 `JSON`，后面看到了一个用 `Ajax` 和 `JSON` 结合的案例，于是我遍突发奇想，开了完善这个东西:
+
+- 在加载内容前显示一个加载动画，采用 `CSS3` 来完成
+- 加载完成后，也采用 `CSS3` 来将内容模板从上方掉落下来
+
 ## The pictures of final results
 
 ![加载前效果图](./express1.png)
