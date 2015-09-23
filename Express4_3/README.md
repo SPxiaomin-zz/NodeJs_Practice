@@ -1,4 +1,6 @@
-# 写一个自己的博客网站（还在建设当中）
+# node.js 和 express4.x 写一个自己的博客网站
+
+这是来源于 [segmentfault](http://segmentfault.com/a/1190000000488358#articleHeader7) 上的一个教程。
 
 ## Knowledge Points
 
@@ -430,6 +432,20 @@ Node.js 中的缓冲区是处理二进制数据的一种方式。由于 Javascri
                 
                 触发事件文件所在的绝对路径。
             
+- gulp.dest(path[, options])
+
+    指定文件的被写路径。
+    
+    参数简介：
+    
+    - path
+    
+        类型：字符串（还有其他的一种，暂时用不到，不介绍了）
+        
+        这个路径是将 `gulp.src` 的值加到 `path` 值的末尾生成的。
+        
+    options 参数部分我就不介绍了，我目前还没有达到那个看懂的等级，如果需要的话，自己去看API吧。
+    
         
 ### LESS
 
