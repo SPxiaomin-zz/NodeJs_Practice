@@ -1,6 +1,4 @@
-# node.js 和 express4.x 写一个自己的博客网站
-
-这是来源于 [segmentfault](http://segmentfault.com/a/1190000000488358#articleHeader7) 上的一个教程。
+# node.js 和 express4.x 写一个自己的博客网站（网站建设中）
 
 ## Knowledge Points
 
@@ -82,6 +80,22 @@ Node.js 中的缓冲区是处理二进制数据的一种方式。由于 Javascri
 缓冲区是 Buffer 类的实例，由于 Buffer 模块是全局的，所以无需请求该模块即可使用。依据实例化的方式不同，缓冲区有许多选项。它们可以用一个代表要分配给缓冲区的字符数（或者八位位组数）的整型值作为参数。也可指定要使用的编码。默认编码是 UTF-8，所以如果不指定编码的话，使用的将是 UTF-8。
 
 如果将其作为字符串写到控制台，那么它将展示的是一个 UTF-8 字符串。Node.js 提供 `toString()`方法将缓冲区以字符串方式写出。
+
+#### 流模块
+
+如果是使用 UNIX 类型操作系统的朋友应该非常的熟悉流的概念，就是数据流的输入输出。
+
+如果缓冲区是 Node.js 处理原始数据的方式的话，那么流通常是 Node.js 移动数据的方式。Node.js 的流可以是可读的和/或是可写的。
+
+第一次接触有点懵懵懂懂的感觉，那就让我们一起看个例子吧：
+
+    var fs = require('fs');
+    
+    var readableStream = fs.ReadStream('in.txt'); // 可读流
+    
+    var writableStream = fs.WriteStream('out.txt'); // 可写流
+    
+    readableStream.pipe(writableStream); // 通过 pipe() 方法来自动的处理暂停流和恢复流操作，所以除非需要对事件的发生有完全的控制，否则应该使用 pipe()。可以通过事件模块，控制对流的处理，如果需要的，自己 Google 吧，下面那也有简单的介绍。
 
 #### 事件模块
 
@@ -431,7 +445,32 @@ Node.js 中的缓冲区是处理二进制数据的一种方式。由于 Javascri
                 类型：字符串
                 
                 触发事件文件所在的绝对路径。
-            
+
+- gulp.src(globs[, options])
+
+    读取匹配文件中的内容，然后通过 `pipe` 管道传输到可写流当中去，这就涉及到流模块的知识了，上面部分有简单的介绍。
+    
+    参数简介：
+    
+    - globs
+    
+        这个参数在上面已经介绍过了，不重复了。
+        
+    options 参数部分就是介绍一个 options.base
+    
+    类型： 字符串
+    
+    默认的值： 匹配模式开始的前面部分，可能有点难以理解，看看下面的示例代码吧：
+        
+        gulp.src('client/js/**/*.js') // Matches 'client/js/somedir/somefile.js' and resolves `base` to `client/js/`
+          .pipe(minify())
+          .pipe(gulp.dest('build'));  // Writes 'build/somedir/somefile.js'
+        
+        gulp.src('client/js/**/*.js', { base: 'client' })
+          .pipe(minify())
+          .pipe(gulp.dest('build'));  // Writes 'build/js/somedir/somefile.js'
+
+    
 - gulp.dest(path[, options])
 
     指定文件的被写路径。
@@ -442,11 +481,207 @@ Node.js 中的缓冲区是处理二进制数据的一种方式。由于 Javascri
     
         类型：字符串（还有其他的一种，暂时用不到，不介绍了）
         
-        这个路径是将 `gulp.src` 的值加到 `path` 值的末尾生成的。
+        这个路径是将 `gulp.src` 中的 `base` 的除外的值加到 `path` 值末尾生成的。
         
     options 参数部分我就不介绍了，我目前还没有达到那个看懂的等级，如果需要的话，自己去看API吧。
     
+    
+### gulp 插件
+
+- gulp-watch
+
+    检测文件内容是否变化，进而执行一些任务。
+    
+    详细的使用说明请参见上面介绍的 `gulp API`。
+
+- gulp-less
+
+    由于使用到了 `less` 来简化编写 `css` 代码，所以需要使用这个插件来进行编译。这个插件的在 [npm 插件网站](https://www.npmjs.com/package/gulp-less/) 上面有详细的使用说明，这个插件的默认设置就已经够用了，如果需要的话，自己去官网转悠吧：）。
+    
+    使用示例：
+    
+        var less = require('gulp-less');
         
+        gulp.task('tastName', function () {
+            return gulp.src('public/less/*.less')
+                .pipe(less())    // 这里会自动的将文件的后缀名变成 .css
+                .pipe(gulp.dest('public/stylesheets/'));
+        });
+    
+- gulp-minify-css
+
+    这个插件用来压缩 `css` 代码。默认配置暂时够用。提供一下 [插件的github网址](https://github.com/murphydanger/gulp-minify-css)。
+    
+    使用示例：
+    
+        var less = require('gulp-less'),
+            minifyCSS = require('gulp-minify-css');
+        
+        gulp.task('tastName', function () {
+            return gulp.src('public/less/*.less')
+                .pipe(less())    // 这里会自动的将文件的后缀名变成 .css
+                .pipe(gulp.dest('public/stylesheets/'))
+                .pipe(minifyCSS()),
+                .pipe(rename({
+                    extname: ".min.css"
+                })
+                .pipe(gulp.dest('public/stylesheets/'));
+        });
+        
+- gulp-rename
+
+    这个插件是用来重命名文件的。[npm 插件网站](https://www.npmjs.com/package/gulp-rename) 上提供了三种方式，我这里介绍一下第三种：
+    
+        // rename via hash 
+        gulp.src("./src/main/text/hello.txt", { base: process.cwd() })
+          .pipe(rename({
+            dirname: "main/text/ciao",
+            basename: "aloha",
+            prefix: "bonjour-",
+            suffix: "-hola",
+            extname: ".md"
+          }))
+          .pipe(gulp.dest("./dist")); // ./dist/main/text/ciao/bonjour-aloha-hola.md 
+    
+    对象参数简介：
+    
+    - dirname 
+    
+        这个参数默认就是 `gulp.src` 方法中将 `base` 除外的值，详细说明看上面。
+        
+    - basename
+    
+        文件名（不包括扩展名）
+        
+    - prefix
+    
+        文件名前缀
+        
+    - suffix 
+    
+        文件名后缀
+        
+    - extname
+    
+        文件的扩张名
+    
+- gulp.livereload
+
+    这个插件实现在改动了代码的情况下，自动刷新浏览器的界面，不过要与 `Chrome` 的 `livereload` 插件一块使用。[npm 插件网站上](https://www.npmjs.com/package/gulp-livereload/) 介绍了一大串的东西，我觉得我只需要用到示例中的东西就差不多足够了。
+    
+        var gulp = require('gulp'),
+            less = require('gulp-less'),
+            livereload = require('gulp-livereload');
+         
+        gulp.task('less', function() {
+          gulp.src('less/*.less')
+            .pipe(less())
+            .pipe(gulp.dest('css'))
+            .pipe(livereload());
+        });
+         
+        gulp.task('watch', function() {
+          livereload.listen();
+          gulp.watch('less/*.less', ['less']);
+        });
+    
+- gulp.plumber
+
+    这个插件防止在 `gulp` 插件发生错误的时候，停止使用 `gulp`。[npm 插件网站](https://www.npmjs.com/package/gulp-plumber/) 上介绍了原理，以及使用说明，我又想说同样的一句话，我暂时用不到选项参数当中的东西，暂时就不介绍了。
+    
+    注意事项：
+    
+    一定要在使用这个插件的时候，放在最前面。举个例子吧：
+    
+        var plumber = require('gulp-plumber');
+        var coffee = require('gulp-coffee');
+         
+        gulp.src('./src/*.ext')
+            .pipe(plumber())
+            .pipe(coffee())
+            .pipe(gulp.dest('./dist')); 
+
+- gulp-imagemin
+
+    对图片进行压缩。[npm 插件网站](https://www.npmjs.com/package/gulp-imagemin/) 上面一大堆的选项，表示看不懂是什么东西。我选的都是默认的设置。
+    
+        gulp.task('images', function () {
+            return gulp.src('src/images/*')
+                .pipe(imagemin())
+                .pipe(gulp.dest('dist/images'));
+        });
+    
+毫不吝啬的给你们看一下我写的 `gulpfile.js` 文件，小小的自恋一下，这个文件结合了很多人的写法，应该很优化了：
+
+    var gulp = require('gulp'),
+        watch = require('gulp-watch'),
+        livereload = require('gulp-livereload'),
+        plumber = require('gulp-plumber'),
+        rename = require('gulp-rename'),
+        imagemin = require('gulp-imagemin'),
+        less = require('gulp-less'),
+        minifyCSS = require('gulp-minify-css');
+    
+    var paths = {
+        html: ['views/**/*.html'],
+        less: ['public/less/**/*.less'],
+        images: ['public/images/src/**/*']
+    };
+    
+    var watcherHtml;
+    var watcherLess;
+    var watcherImage;
+    
+    gulp.task('html', function () {
+        return gulp.src(paths.html)
+            .pipe(livereload());
+    });
+    
+    gulp.task('images', function () {
+        return gulp.src(paths.images)
+            .pipe(plumber())
+            .pipe(imagemin())
+            .pipe(plumber.stop())
+            .pipe(gulp.dest('public/images/dest'));
+            .pipe(livereload());
+    });
+    
+    gulp.task('styles', function () {
+        return gulp.src(paths.less)
+            .pipe(plumber())
+            .pipe(less())
+            .pipe(plumber.stop())
+            .pipe(gulp.dest('public/stylesheets'))
+            .pipe(minifyCSS())
+            .pipe(rename({
+                extname: ".min.css"
+            }))
+            .pipe(gulp.dest('public/stylesheets'))
+            .pipe(livereload());
+    });
+    
+    gulp.task('default', ['html', 'styles', 'images'], function () {
+        livereload.listen();
+    
+        watcherHtml = gulp.watch(paths.html, ['html']);
+        watcherHtml.on('change', function (event) {
+            console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+        });
+    
+    
+        watcherLess = gulp.watch(paths.less, ['styles']);
+        watcherLess.on('change', function (event) {
+            console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+        });
+    
+        watcherImage = gulp.watch(paths.images, ['images']);
+        watcherImage.on('change', function (event) {
+            console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+        });
+    });
+
+    
+    
 ### LESS
 
 
