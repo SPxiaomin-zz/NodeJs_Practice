@@ -1,0 +1,38 @@
+.intro-section {
+  /* layout */
+  min-height: 600px;
+  position: relative;
+  /* typography */
+  text-align: center;
+}
+.intro-section h1 {
+  text-align: center;
+}
+.intro-section img {
+  /* layout */
+  height: 250px;
+  weight: 250px;
+  position: relative;
+  top: 50px;
+}
+.intro-section .intro {
+  /* layout */
+  position: relative;
+  top: 100px;
+  /* typography */
+  font-size: 17.49965001px;
+}
+.github-section {
+  /* layout */
+  min-height: 600px;
+  /* typography */
+  text-align: center;
+}
+.github-section svg {
+  position: relative;
+  top: 50px;
+}
+.github-section .intro {
+  position: relative;
+  top: 150px;
+}

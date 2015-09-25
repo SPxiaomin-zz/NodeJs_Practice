@@ -21,6 +21,9 @@ function Blog(filename) {
     }
 }
 
+router.get('/home', function (req, res) {
+    res.render('home.html');
+});
 
 //在主页面中显示文章列表的链接
 router.get('/', function (req, res) {
@@ -75,7 +78,7 @@ router.get('/blog/:year/:month/:day/:title', function(req, res, next) {
             if ( err ) {
                 res.send(err);
             }
-            res.render('index', { data: content });
+            res.render('home.html', { data: content });
         });
     });
 });

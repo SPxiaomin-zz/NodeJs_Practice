@@ -5,9 +5,6 @@
   "authors": [
     "gujunmin <3013366498@qq.com>"
   ],
-  "moduleType": [
-    "globals"
-  ],
   "license": "MIT",
   "ignore": [
     "**/.*",

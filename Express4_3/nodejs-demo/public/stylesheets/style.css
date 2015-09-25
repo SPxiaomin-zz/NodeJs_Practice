@@ -1,12 +1,13 @@
+html,
 body {
-    margin: 50px auto;
-    padding: 0 150px;
+    margin: 0;
+    padding: 0;
 }
 
-@media (min-width: 767px) {
-    body {
-        font-size: 35px;
-    }
+.test {
+    height: 100%;
+    width: 100%;
+    background-color: #cf4646;
 }
 
 .header {
