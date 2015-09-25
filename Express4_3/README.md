@@ -488,6 +488,8 @@ Node.js 中的缓冲区是处理二进制数据的一种方式。由于 Javascri
     
 ### gulp 插件
 
+偶然之间看了一个写得非常详细的 [博客](http://www.dtao.org/archives/category/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7)，只想说一句不能再详细了，这是我一次见到写得这么好的博客，一万个赞！
+
 - gulp-watch
 
     检测文件内容是否变化，进而执行一些任务。
@@ -601,14 +603,39 @@ Node.js 中的缓冲区是处理二进制数据的一种方式。由于 Javascri
             .pipe(coffee())
             .pipe(gulp.dest('./dist')); 
 
-- gulp-imagemin
+- gulp-imagemin & gulp-cache
 
-    对图片进行压缩。[npm 插件网站](https://www.npmjs.com/package/gulp-imagemin/) 上面一大堆的选项，表示看不懂是什么东西。我选的都是默认的设置。
+    对图片进行压缩。[npm 插件网站](https://www.npmjs.com/package/gulp-imagemin/) 上面一大堆的选项，有些相关的术语懵懵懂懂，看了一下上面我推荐的那个博客，感觉又懂了一点，暂时照葫芦画瓢吧。其中涉及到了 `gulp-cache` 这个插件，使用这个插件的原因是，压缩图片是比较耗费时间的，很多的情况下我们只修改了部分图片，没有必要全部重新压缩，所以使用这个插件只压缩修改了的图片，没有修改的图片直接从缓冲文件中读取。还使用到了 `imagemin-pngquant` 这个插件进行深度压缩png图片。      
     
         gulp.task('images', function () {
             return gulp.src('src/images/*')
-                .pipe(imagemin())
+                .pipe(cache(imagemin({
+                    progressive: true, //类型： Boolean 默认：false 无损压缩jpg图片
+                    interlaced: true,  //类型： Boolean 默认：false 隔行扫描gif进行渲染
+                    multipass: true,   //类型： Boolean 默认：false 多次优化svg直到完全优化
+                    svgoPlugins: [{removeViewBox: false}], //不要移除svg的viewbox属性
+                    use: [pngquant()] //使用pngquant深度压缩png图片
+                })))
                 .pipe(gulp.dest('dist/images'));
+        });
+    
+- gulp-htmlmin
+
+    从名字就可以看出来这个插件是用来对 `html` 文件进行压缩用的。[github网站上](https://github.com/kangax/html-minifier) 的选项参数实在是太多了，我参考了一下上面我推荐的那篇文章，选了几个够用了的，如果需要的话，自己去官网慢慢看吧。    
+    
+        gulp.task('html', function () {
+            return gulp.src(paths.html)
+                .pipe(minifyHtml({
+                    removeComments: true, //清除html注释
+                    collapseWhitespace: true, //压缩html
+                    removeEmptyAttributes: true, //清除标签中属性值为空的所有属性 <input id="" /> ==> <input />
+                    removeScriptTypeAttributes: true, //移除 script 标签中的 type="text/javascript"，其它的类型属性保留
+                    removeStyleLinkTypeAttributes: true, //移除 link 标签中的 type="text/css"，其它的类型属性保留
+                    minifyJS: true, //压缩页面中的 Javascipt
+                    minifyCSS: true //压缩页面中的 CSS
+                }))
+                .pipe(gulp.dest('views/dest'))
+                .pipe(livereload());
         });
     
 毫不吝啬的给你们看一下我写的 `gulpfile.js` 文件，小小的自恋一下，这个文件结合了很多人的写法，应该很优化了：
@@ -618,14 +645,21 @@ Node.js 中的缓冲区是处理二进制数据的一种方式。由于 Javascri
         livereload = require('gulp-livereload'),
         plumber = require('gulp-plumber'),
         rename = require('gulp-rename'),
-        imagemin = require('gulp-imagemin'),
-        less = require('gulp-less'),
+        concat = require('gulp-concat');
+    
+    var imagemin = require('gulp-imagemin'),
+        pngquant = require('imagemin-pngquant'),
+        cache = require('gulp-cache');
+        
+    var minifyHtml = require('gulp-htmlmin');
+        
+    var less = require('gulp-less'),
         minifyCSS = require('gulp-minify-css');
     
     var paths = {
-        html: ['views/**/*.html'],
+        html: ['views/src/*.html'],
         less: ['public/less/**/*.less'],
-        images: ['public/images/src/**/*']
+        images: ['public/images/src/**/*.{png, jpg, gif}']
     };
     
     var watcherHtml;
@@ -634,15 +668,31 @@ Node.js 中的缓冲区是处理二进制数据的一种方式。由于 Javascri
     
     gulp.task('html', function () {
         return gulp.src(paths.html)
+            .pipe(minifyHtml({
+                removeComments: true, //清除html注释
+                collapseWhitespace: true, //压缩html
+                removeEmptyAttributes: true, //清除标签中属性值为空的所有属性 <input id="" /> ==> <input />
+                removeScriptTypeAttributes: true, //移除 script 标签中的 type="text/javascript"，其它的类型属性保留
+                removeStyleLinkTypeAttributes: true, //移除 link 标签中的 type="text/css"，其它的类型属性保留
+                minifyJS: true, //压缩页面中的 Javascipt
+                minifyCSS: true //压缩页面中的 CSS
+            }))
+            .pipe(gulp.dest('views/dest'))
             .pipe(livereload());
     });
     
     gulp.task('images', function () {
         return gulp.src(paths.images)
             .pipe(plumber())
-            .pipe(imagemin())
+            .pipe(cache(imagemin({
+                progressive: true, //类型： Boolean 默认：false 无损压缩jpg图片
+                interlaced: true,  //类型： Boolean 默认：false 隔行扫描gif进行渲染
+                multipass: true,   //类型： Boolean 默认：false 多次优化svg直到完全优化
+                svgoPlugins: [{removeViewBox: false}], //不要移除svg的viewbox属性
+                use: [pngquant()] //使用pngquant深度压缩png图片
+            })))
             .pipe(plumber.stop())
-            .pipe(gulp.dest('public/images/dest'));
+            .pipe(gulp.dest('public/images/dest'))
             .pipe(livereload());
     });
     
@@ -680,8 +730,7 @@ Node.js 中的缓冲区是处理二进制数据的一种方式。由于 Javascri
         });
     });
 
-    
-    
+
 ### LESS
 
 
