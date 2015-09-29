@@ -1,49 +1,185 @@
-.intro-section {
+.welcome-section {
     /* layout */
-    min-height: 600px;
+    min-height: 640px;
 
-    position: relative;
+    .spinner {
+        /* color */
+        background-color: #333;
 
-    /* typography */
-    text-align: center;
+        /* layout */
+        width: 100px;
+        height: 100px;
+        margin: 130px auto 50px auto;
 
-    h1 {
-        text-align: center;
+        -webkit-animation: rotateplane 2s infinite ease-in-out;
+        animation: rotateplane 2s infinite ease-in-out;
     }
 
-    img {
-        /* layout */
-        height: 250px;
-        weight: 250px;
-        position: relative;
-        top: 50px;
+    @-webkit-keyframes rotateplane {
+        0% {
+            -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        }
+        50% {
+            -webkit-transform: perspective(120px) rotateX(0deg) rotateY(180deg);
+        }
+        100% {
+            -webkit-transform: perspective(120px) rotateX(180deg) rotateY(180deg);
+        }
     }
 
-    .intro {
-        /* layout */
-        position: relative;
-        top: 100px;
+    @keyframes rotateplane {
+        0% {
+            transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        }
+        50% {
+            transform: perspective(120px) rotateX(0deg) rotateY(180deg);
+        }
+        100% {
+            transform: perspective(120px) rotateX(180deg) rotateY(180deg);
+        }
+    }
 
+    h2 {
         /* typography */
-        font-size: 25px/1.4286;
+        font-size: 3em;
+        text-align: center;
+        text-shadow: 2px 2px 5px rgba(33, 26, 26, 0.79);
+    }
+    
+    .image {
+        text-align: center;
+
+        img {
+            /* layout */
+            width: 64px;
+            height: 63px;
+
+            -webkit-animation: arrow 3s infinite ease-in-out;
+            animation: arrow 3s infinite ease-in-out;
+        }
+
+        @-webkit-keyframes arrow {
+            0% {
+                -webkit-transform: translateY(0px);
+                opacity: 0;
+            }
+            100% {
+                -webkit-transform: translateY(80px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes arrow {
+            0% {
+                transform: translateY(0px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(80px);
+                opacity: 1;
+            }
+        }
     }
 }
 
-.github-section {
+.intro-section {
     /* layout */
-    min-height: 600px;
+    min-height: 650px;
+    padding-top: 125px;
+    padding-bottom: 125px;
 
+    background: url(/images/src/backfour.jpg) center center no-repeat fixed;
+    background-size: cover;
 
-    /* typography */
-    text-align: center;
+    h2 {
+        /* color */
 
-    svg {
-position: relative;
-        top: 50px;
+        /* typography */
+        font-size: 3em;
+        text-align: center;
     }
 
-    .intro {
+    .panel {
+        opacity: 0.7;
+
+        .events {
+            /* layout */
+            margin: 60px 100px 80px 100px;
+            position: relative;
+
+            &::before {
+              content: " ";
+
+              /* color */
+              background: rgba(51, 51, 51, 0.27);
+
+              /* layout */
+              width: 4px;
+              height: 100%;
+              margin-left: -10px;
+              position: absolute;
+              z-index: 1;
+            }
+            
+            .timeline {
+                /* layout */
+                margin-bottom: 50px;
+
+                h2 {
+                    text-align: left;
+                }
+            }
+
+            .timeline-row {
+                /* layout */
+                border-bottom: 1px dashed #333;
+                margin-bottom: 20px;
+                position: relative;
+
+                
+                .timeline-content {
+                    margin-left: 80px;
+
+                    /* typography */
+                    font-size: 1.2em;
+                    line-height: 20px;
+                }
+
+                .timeline-time {
+                    /* layout */
+                    position: absolute;
+                    top: 0;
+                    left: 10px;
+
+                    /* typography */
+                    font-size: 12px;
+                    line-height: 20px;
+                }
+            }
+        }
+    }
+}
+
+
+.github-section {
+    /* layout */
+    min-height: 640px;
+
+    .img {
+        /* layout */
 position: relative;
-        top: 150px;
+top: 100px;
+        /* typography */
+        text-align: center;
+    }
+
+    .content {
+        /* layout */
+        margin-top: 150px;
+
+        h2 {
+            /* typography */
+            text-align: center;
+        }
     }
 }
