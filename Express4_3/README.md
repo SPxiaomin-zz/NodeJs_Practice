@@ -330,7 +330,10 @@ Node.js 中的缓冲区是处理二进制数据的一种方式。由于 Javascri
     
 其实用到这里就差不多了，如果还需要更加详细的内容的话，自行 Google 吧，上面给的那篇文章其实也一般情况下够用了。
 
+
 ### Bootstrap#3.3.5
+
+
 
 
 ### gulp 自动化工具
@@ -733,7 +736,38 @@ Node.js 中的缓冲区是处理二进制数据的一种方式。由于 Javascri
 
 ### LESS
 
+这是我第一次使用这个东西，记得第一下学期刚开始写 `CSS` 的时候，没学多久我就看到了 `less` 这个东西，于是我便学习了一下，当时感觉没有什么用，还那么麻烦。现在写了几个月的 `CSS` 之后，觉得写得好累，特别是在选择器嵌套的时候，几百行代码，看得头都大了。于是花了几十分钟的样子复习了一下，突然之间感觉--这东西，真心是个好东西！我这里主要使用它的原因就是以为嵌套的原因，下面将主要讲一下这个东西，如果还用到了其它东西的话，我也会简单的提及一下。
 
+以下的内容主要是摘录于 [Bootstrap 中文网站上面的 less 教程](http://www.bootcss.com/p/lesscss/)，个人认为写的还不错，例子写的很详细。
+
+- 嵌套规则
+
+    这个东西嘛，看代码之后就知道怎么用了。
+    
+        //less
+        #header {
+          color: black;
+        
+          .navigation {
+            font-size: 12px;
+          }
+          .logo {
+            width: 300px;
+            &:hover { text-decoration: none }
+          }
+        }
+        
+        //css
+        #header { color: black; }
+        #header .navigation {
+          font-size: 12px;
+        }
+        #header .logo { 
+          width: 300px; 
+        }
+        #header .logo:hover {
+          text-decoration: none;
+        }
 
 
 ### Javascript
@@ -847,3 +881,73 @@ Node.js 中的缓冲区是处理二进制数据的一种方式。由于 Javascri
     
     `forEach()` 对数组中的每一项运行给定的函数。这个方法没有返回值，本质上与使用 `for` 循环迭代数组一样。
     
+
+### zone 页面制作
+
+#### welcome-section 部分介绍
+
+##### 知识点简介
+
+以下的内容摘抄于 [w3cschool](http://www.w3school.com.cn/css3/css3_animation.asp) 和 [w3cplus](http://www.w3cplus.com/css3/transform-basic-property.html) 。
+
+- CSS3 文本阴影
+
+    我对这一部分的字体设置了阴影，感觉效果还可以。单调的文字不加阴影看起来步怎么好看。
+    
+    可以规定水平阴影、垂直阴影、模糊距离，以及阴影的颜色。
+
+- `rotateX()` 方法
+
+    通过 `rotateX()` 方法，元素围绕其 X 轴以给定的度数进行旋转。
+
+- `rotateY()` 旋转
+
+    通过 `rotateY()` 方法，元素围绕其 Y 轴以给定的度数进行旋转。
+    
+- `perspective` 方法
+
+    这个东西我第一次使用，表示知道怎么用了，但是至于为什么的话，我暂时无法进行解释。还是提供给你们一些资料吧-> [w3cplus](http://www.w3cplus.com/css3/transform-basic-property.html) 
+    
+    注意事项：
+    
+    - perspective取值越小，3D效果就越明显，也就是你的眼睛越靠近真3D。
+    - perspective的值无穷大，或值为0时与取值为none效果一样。
+    - perspective()函数取值只能大于0，如果取值为0或比0小的值，将无法激活3D空间。
+    - perspective()函数用于变形对像自身，并和transform其他函数一起使用，记得要放在其它函数的前面，否则就没有效果。
+    
+- translate() 方法
+
+    通过 translate() 方法，元素从其当前位置移动，根据给定的 left（x 坐标） 和     top（y 坐标） 位置参数。
+    
+    translate(x,y)    定义 2D 转换，沿着 X 和 Y 轴移动元素。
+    
+    translateX(n)    定义 2D 转换，沿着 X 轴移动元素。
+    
+    translateY(n)    定义 2D 转换，沿着 Y 轴移动元素。
+    
+- CSS3 动画
+
+    通过规定至少以下两项 CSS3 动画属性，即可将动画绑定到选择器：
+    
+    - 规定动画的名称
+    - 规定动画的时长
+    
+    注意：
+    
+    - 您必须定义动画的名称和时长。如果忽略时长，则动画不会允许，因为默认值是 0。
+    - 为了得到最佳的浏览器支持，您应该始终定义 0% 和 100% 选择器。
+    
+##### 组成
+
+为了做这个开头的界面，我尝试了几种不同的方式，几种不同的风格，发现还是现在的比较简约，比较高大上。
+
+- 旋转的正方体方块
+
+    这个效果是通过 `css3` 的 `rotateY`，`rotateX`，`perspective` 和动画效果实现的。看看代码应该就知道是怎么制作的。
+    
+- 然后是一个 `h3` 标题，设置了 `text-shadow` 属性。
+
+- 最后是一个箭头图片，应用了 `translateY` 和动画效果。
+
+
+
