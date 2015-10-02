@@ -43,7 +43,6 @@
         /* typography */
         font-size: 3em;
         text-align: center;
-        text-shadow: 2px 2px 5px rgba(33, 26, 26, 0.79);
     }
     
     .image {
@@ -84,48 +83,64 @@
 
 .intro-section {
     /* layout */
-    min-height: 650px;
+    min-height: 650px; //使用最小高度，使得当内容超出这个高度的时候，能够自动的增加高度
     padding-top: 125px;
     padding-bottom: 125px;
 
-    background: url(/images/src/backfour.jpg) center center no-repeat fixed;
+    background: url(/images/src/backfour.jpg) center center no-repeat fixed;   //在这里使用了这个fixed属性，当电脑访问的时候，图片就能固定在第二个界面的某个位置，这真的是我第一次发现的这个效果，感觉好爽
     background-size: cover;
 
     h2 {
-        /* color */
-
         /* typography */
         font-size: 3em;
         text-align: center;
     }
 
     .panel {
-        opacity: 0.7;
-
+        opacity: 0.7;  //使得面板产生透明的效果，隐隐约约的显示出后面的背景图片来，这个值不能太小了，会影响文字的阅读效果
+        
         .events {
             /* layout */
-            margin: 60px 100px 80px 100px;
+            margin: 60px 20px 80px 20px;
             position: relative;
 
             &::before {
-              content: " ";
+                content: " ";
 
-              /* color */
-              background: rgba(51, 51, 51, 0.27);
+                /* color */
+                background-color: rgba(51, 51, 51, 0.07);
 
-              /* layout */
-              width: 4px;
-              height: 100%;
-              margin-left: -10px;
-              position: absolute;
-              z-index: 1;
+                /* layout */
+                width: 4px;
+                height: 100%;
+                margin-left: -5px;
+                position: absolute;  //伪元素默认是行内元素，通过绝对定位之后就变成了块级元素，进而可以设置宽度和高度。这里最主要的原因是因为为了使这个伪元素制作成的黑条效果可以使其的高度自适应内容的高度
             }
-            
             .timeline {
                 /* layout */
                 margin-bottom: 50px;
+                position: relative;
+
+                &::before {
+                    content: " ";
+
+                    /* color */
+                    background-color: rgba(51,51,51,0.19);
+
+                    /* layout */
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    margin-left: -8px;
+                    position: absolute;
+                    top: 20px;
+                }
 
                 h2 {
+                    /* layout */
+                    padding-left: 10px;
+
+                    /* typography */
                     text-align: left;
                 }
             }
@@ -136,6 +151,20 @@
                 margin-bottom: 20px;
                 position: relative;
 
+                &::before {
+                    content: " ";
+
+                    /* color */
+                    background-color: rgba(51,51,51,0.19);
+
+                    /* layout */
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 50%;
+                    margin-left: -6px;
+                    position: absolute;
+                    top: 6px;
+                }
                 
                 .timeline-content {
                     margin-left: 80px;
@@ -167,10 +196,11 @@
 
     .img {
         /* layout */
-position: relative;
-top: 100px;
+        position: relative;
+        top: 100px;
+
         /* typography */
-        text-align: center;
+        text-align: center;  //把图片进行居中显示
     }
 
     .content {
@@ -180,6 +210,98 @@ top: 100px;
         h2 {
             /* typography */
             text-align: center;
+        }
+
+        h3 {
+            /* layout */
+            margin-top: 50px;
+
+            /* typography */
+            font-size: 1em;
+            text-align: center;
+
+            a {
+                /* typography */
+                font-size: 3em;
+            }
+        }
+    }
+}
+
+.blog-section {
+    /* layout */
+    min-height: 640px;
+
+    background: url(/images/src/code.png) center center no-repeat;
+
+    .content {
+
+        h2 {
+            /* color */
+            color: #fff;
+
+            /* layout */
+            position: relative;
+            top: 200px;
+
+            /* typography */
+            font-size: 3em;
+            text-align: center;
+        }
+
+        h3 {
+            /* color */
+            color: #fff;
+
+            /* layout */
+            position: relative;
+            top: 250px;
+
+            /* typography */
+            font-size: 1em;
+            text-align: center;
+
+            span {
+                /* typography */
+                font-size: 2em;
+            }
+
+            a {
+                /* typography */
+                font-size: 3em;
+            }
+        }
+    }
+}
+
+.contact-section {
+    /* layout */
+    min-height: 640px;
+
+    .img {
+        /* layout */
+        position: relative;
+        top: 100px;
+        text-align: center;
+
+        img {
+            /* layout */
+            width: 223px;
+            height: 226px;
+        }
+    }
+
+    .content {
+        /* layout */
+        position: relative;
+        top: 150px;
+
+        h3 {
+            /* layout */
+            text-align: center;
+
+            /* typography */
+            font-size: 1em;
         }
     }
 }

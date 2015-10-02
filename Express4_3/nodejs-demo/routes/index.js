@@ -21,12 +21,12 @@ function Blog(filename) {
     }
 }
 
-router.get('/home', function (req, res) {
+router.get('/', function (req, res) {
     res.render('home.html');
 });
 
 //在主页面中显示文章列表的链接
-router.get('/', function (req, res) {
+router.get('/blog', function (req, res) {
     var html = '';
     var dir = path.join('public', 'blogs');
     var blogList = new Array(); 
@@ -78,7 +78,7 @@ router.get('/blog/:year/:month/:day/:title', function(req, res, next) {
             if ( err ) {
                 res.send(err);
             }
-            res.render('home.html', { data: content });
+            res.render('../index.ejs', { data: content });
         });
     });
 });
