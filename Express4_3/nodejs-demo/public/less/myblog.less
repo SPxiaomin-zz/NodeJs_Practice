@@ -1,3 +1,17 @@
+/* common */
+
+h2 {
+    /* typography */
+    font-size: 3em;
+    text-align: center;
+}
+
+h3 {
+    /* typography */
+    font-size: 1em;
+    text-align: center;
+}
+
 .welcome-section {
     /* layout */
     min-height: 640px;
@@ -9,7 +23,7 @@
         /* layout */
         width: 100px;
         height: 100px;
-        margin: 130px auto 50px auto;
+        margin: 130px auto 50px auto;  //左右设置为auto进行自适应居中显示
 
         -webkit-animation: rotateplane 2s infinite ease-in-out;
         animation: rotateplane 2s infinite ease-in-out;
@@ -38,14 +52,8 @@
             transform: perspective(120px) rotateX(180deg) rotateY(180deg);
         }
     }
-
-    h2 {
-        /* typography */
-        font-size: 3em;
-        text-align: center;
-    }
     
-    .image {
+    .img {
         text-align: center;
 
         img {
@@ -90,19 +98,13 @@
     background: url(/images/src/backfour.jpg) center center no-repeat fixed;   //在这里使用了这个fixed属性，当电脑访问的时候，图片就能固定在第二个界面的某个位置，这真的是我第一次发现的这个效果，感觉好爽
     background-size: cover;
 
-    h2 {
-        /* typography */
-        font-size: 3em;
-        text-align: center;
-    }
-
     .panel {
         opacity: 0.7;  //使得面板产生透明的效果，隐隐约约的显示出后面的背景图片来，这个值不能太小了，会影响文字的阅读效果
         
         .events {
             /* layout */
             margin: 60px 20px 80px 20px;
-            position: relative;
+            position: relative; //成为伪元素进行absolute定位时候的包含块
 
             &::before {
                 content: " ";
@@ -114,12 +116,13 @@
                 width: 4px;
                 height: 100%;
                 margin-left: -5px;
-                position: absolute;  //伪元素默认是行内元素，通过绝对定位之后就变成了块级元素，进而可以设置宽度和高度。这里最主要的原因是因为为了使这个伪元素制作成的黑条效果可以使其的高度自适应内容的高度
+                position: absolute;  //伪元素默认是行内元素，通过绝对定位之后就变成了块级元素，进而可以设置宽度和高度。这里使用这个属性的最主要的原因是因为为了使这个伪元素制作成的黑条效果可以使其的高度自适应内容的高度
             }
+
             .timeline {
                 /* layout */
                 margin-bottom: 50px;
-                position: relative;
+                position: relative;  //成为伪元素进行absolute定位时候的包含块
 
                 &::before {
                     content: " ";
@@ -149,7 +152,7 @@
                 /* layout */
                 border-bottom: 1px dashed #333;
                 margin-bottom: 20px;
-                position: relative;
+                position: relative;  //成为伪元素进行absolute定位时候的包含块
 
                 &::before {
                     content: " ";
@@ -167,6 +170,7 @@
                 }
                 
                 .timeline-content {
+                    /* layout */
                     margin-left: 80px;
 
                     /* typography */
@@ -181,7 +185,7 @@
                     left: 10px;
 
                     /* typography */
-                    font-size: 12px;
+                    font-size: 0.8em;
                     line-height: 20px;
                 }
             }
@@ -197,7 +201,7 @@
     .img {
         /* layout */
         position: relative;
-        top: 100px;
+        top: 150px;
 
         /* typography */
         text-align: center;  //把图片进行居中显示
@@ -205,21 +209,9 @@
 
     .content {
         /* layout */
-        margin-top: 150px;
-
-        h2 {
-            /* typography */
-            text-align: center;
-        }
+        margin-top: 200px;
 
         h3 {
-            /* layout */
-            margin-top: 50px;
-
-            /* typography */
-            font-size: 1em;
-            text-align: center;
-
             a {
                 /* typography */
                 font-size: 3em;
@@ -235,7 +227,6 @@
     background: url(/images/src/code.png) center center no-repeat;
 
     .content {
-
         h2 {
             /* color */
             color: #fff;
@@ -243,10 +234,6 @@
             /* layout */
             position: relative;
             top: 200px;
-
-            /* typography */
-            font-size: 3em;
-            text-align: center;
         }
 
         h3 {
@@ -256,10 +243,6 @@
             /* layout */
             position: relative;
             top: 250px;
-
-            /* typography */
-            font-size: 1em;
-            text-align: center;
 
             span {
                 /* typography */
@@ -295,13 +278,5 @@
         /* layout */
         position: relative;
         top: 150px;
-
-        h3 {
-            /* layout */
-            text-align: center;
-
-            /* typography */
-            font-size: 1em;
-        }
     }
 }

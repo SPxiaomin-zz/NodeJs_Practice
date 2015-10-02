@@ -1,3 +1,14 @@
+/* common */
+h2 {
+  /* typography */
+  font-size: 3em;
+  text-align: center;
+}
+h3 {
+  /* typography */
+  font-size: 1em;
+  text-align: center;
+}
 .welcome-section {
   /* layout */
   min-height: 640px;
@@ -34,15 +45,10 @@
     transform: perspective(120px) rotateX(180deg) rotateY(180deg);
   }
 }
-.welcome-section h2 {
-  /* typography */
-  font-size: 3em;
+.welcome-section .img {
   text-align: center;
 }
-.welcome-section .image {
-  text-align: center;
-}
-.welcome-section .image img {
+.welcome-section .img img {
   /* layout */
   width: 64px;
   height: 63px;
@@ -76,11 +82,6 @@
   padding-bottom: 125px;
   background: url(/images/src/backfour.jpg) center center no-repeat fixed;
   background-size: cover;
-}
-.intro-section h2 {
-  /* typography */
-  font-size: 3em;
-  text-align: center;
 }
 .intro-section .panel {
   opacity: 0.7;
@@ -142,6 +143,7 @@
   top: 6px;
 }
 .intro-section .panel .events .timeline-row .timeline-content {
+  /* layout */
   margin-left: 80px;
   /* typography */
   font-size: 1.2em;
@@ -153,7 +155,7 @@
   top: 0;
   left: 10px;
   /* typography */
-  font-size: 12px;
+  font-size: 0.8em;
   line-height: 20px;
 }
 .github-section {
@@ -163,24 +165,13 @@
 .github-section .img {
   /* layout */
   position: relative;
-  top: 100px;
+  top: 150px;
   /* typography */
   text-align: center;
 }
 .github-section .content {
   /* layout */
-  margin-top: 150px;
-}
-.github-section .content h2 {
-  /* typography */
-  text-align: center;
-}
-.github-section .content h3 {
-  /* layout */
-  margin-top: 50px;
-  /* typography */
-  font-size: 1em;
-  text-align: center;
+  margin-top: 200px;
 }
 .github-section .content h3 a {
   /* typography */
@@ -197,9 +188,6 @@
   /* layout */
   position: relative;
   top: 200px;
-  /* typography */
-  font-size: 3em;
-  text-align: center;
 }
 .blog-section .content h3 {
   /* color */
@@ -207,9 +195,6 @@
   /* layout */
   position: relative;
   top: 250px;
-  /* typography */
-  font-size: 1em;
-  text-align: center;
 }
 .blog-section .content h3 span {
   /* typography */
@@ -238,10 +223,4 @@
   /* layout */
   position: relative;
   top: 150px;
-}
-.contact-section .content h3 {
-  /* layout */
-  text-align: center;
-  /* typography */
-  font-size: 1em;
 }
